@@ -1,81 +1,99 @@
 @import "tailwindcss";
 
+@theme {
+  --color-brand: #e21116;
+  --color-brand-dark: #b50d11;
+  --color-brand-light: #ff4a4e;
+  --color-headings: #0F172A;
+  --color-body: #64748B;
+  --color-bg-alt: #F8F9FB;
+  
+  --font-sans: var(--font-inter), 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  
+  --animate-blob: blob 10s infinite alternate;
+  --animate-blob-slow: blob 15s infinite alternate-reverse;
+  --animate-fadeInUp: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  
+  @keyframes blob {
+    0% {
+      transform: translate(0px, 0px) scale(1);
+    }
+    33% {
+      transform: translate(40px, -60px) scale(1.15);
+    }
+    66% {
+      transform: translate(-30px, 40px) scale(0.85);
+    }
+    100% {
+      transform: translate(0px, 0px) scale(1);
+    }
+  }
+  
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
+
 :root {
-  --medirun-red: #e21116;
-  --medirun-red-dark: #b50d11;
-  --medirun-red-light: #ff4a4e;
-  --medirun-red-50: #fff0f0;
-  --medirun-red-100: #ffe0e0;
-}
-
-* {
-  box-sizing: border-box;
-}
-
-html, body {
-  font-family: 'Inter', sans-serif;
   scroll-behavior: smooth;
 }
 
-@keyframes fadeInUp {
-  from { opacity: 0; transform: translateY(24px); }
-  to { opacity: 1; transform: translateY(0); }
+body {
+  background-color: #FFFFFF;
+  color: #64748B;
+  font-family: var(--font-sans);
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
 }
 
-@keyframes pulse-ring {
-  0% { transform: scale(0.8); opacity: 1; }
-  100% { transform: scale(2.5); opacity: 0; }
+h1, h2, h3, h4, h5, h6 {
+  color: #0F172A;
+  font-weight: 700;
+  letter-spacing: -0.025em;
 }
 
-@keyframes float {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-10px); }
-}
-
-.animate-fadeInUp {
-  animation: fadeInUp 0.6s ease-out both;
-}
-
-.animate-float {
-  animation: float 3s ease-in-out infinite;
-}
-
-.pulse-ring::before {
-  content: '';
-  position: absolute;
-  inset: -6px;
-  border-radius: 50%;
-  background: rgba(226, 17, 22, 0.3);
-  animation: pulse-ring 2s ease-out infinite;
-}
-
-.gradient-text {
-  background: linear-gradient(135deg, #e21116, #ff6b6b);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-.card-hover {
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
-}
-
-.card-hover:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 20px 40px rgba(226,17,22,0.12);
-}
-
-.glass {
-  background: rgba(255,255,255,0.9);
+/* Glassmorphism Classes */
+.glass-navbar {
+  background: rgba(255, 255, 255, 0.75);
   backdrop-filter: blur(12px);
-  border: 1px solid rgba(255,255,255,0.6);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(15, 23, 42, 0.06);
 }
 
-.scrollbar-hide::-webkit-scrollbar { display: none; }
-.scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+.glass-card {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
 
-/* Status badge styles */
-.badge-pending { background: #fef3c7; color: #92400e; }
-.badge-active { background: #d1fae5; color: #065f46; }
-.badge-delivered { background: #dbeafe; color: #1e40af; }
-.badge-cancelled { background: #fee2e2; color: #991b1b; }
+/* Animation utilities for IntersectionObserver */
+.reveal-element {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal-element.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Delay modifiers for stagger effects */
+.delay-100 { transition-delay: 100ms; }
+.delay-200 { transition-delay: 200ms; }
+.delay-300 { transition-delay: 300ms; }
+.delay-400 { transition-delay: 400ms; }
+.delay-500 { transition-delay: 500ms; }
+
+/* Custom Pricing Badge gradient */
+.pricing-badge-grad {
+  background: linear-gradient(135deg, #e21116 0%, #ff4a4e 100%);
+}
